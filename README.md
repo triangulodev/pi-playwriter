@@ -2,14 +2,20 @@
 
 Native [Pi](https://pi.dev/) package that registers a `playwriter` tool for the [Playwriter CLI](https://github.com/remorses/playwriter).
 
-The repository is intended to stay private until you are ready to publish, but its package metadata, `files`, CI, release workflow, and npm provenance flow are ready for npm publishing.
+It helps Pi agents inspect Playwriter setup, install or update the CLI, and run Playwriter commands from a native tool interface.
 
-## Install locally
+## Installation
 
 ```bash
-pi install ~/workspace/pi-playwriter
-# or for a one-off run:
-pi -e ~/workspace/pi-playwriter
+pi install npm:pi-playwriter
+# or from a local checkout:
+pi install ./pi-playwriter
+```
+
+For a one-off run without adding the package to settings:
+
+```bash
+pi -e ./pi-playwriter
 ```
 
 ## Tool
@@ -54,13 +60,6 @@ The model should call:
 
 ## Development
 
-This repo mimics the installed Pi packages in this environment:
-
-- `pi-codex-goal`: TypeScript extension under `src/`, `pi.extensions`, `verify = typecheck + test`, npm-ready `files` metadata.
-- `pi-subagents`: separate test and release workflows, GitHub Actions publishing via `npm publish --provenance`.
-- `pi-web-access`: single extension package shape with `pi-package` keywords.
-- `@juicesharp/rpiv-todo` and `@agnishc/edb-agent-steer`: package metadata style for Pi extension packages.
-
 Commands:
 
 ```bash
@@ -73,10 +72,15 @@ npm run pack:dry
 
 ## Publishing
 
-When the private repository is ready to publish publicly:
-
-1. Create/push the private GitHub repository at `git@github.com:hugooliveirad/pi-playwriter.git` or update `package.json` repository metadata.
-2. Confirm `npm run verify` and `npm run pack:dry` pass.
-3. Trigger `.github/workflows/release.yml` manually.
+1. Confirm `npm run verify` and `npm run pack:dry` pass.
+2. Trigger `.github/workflows/release.yml` manually.
 
 The release workflow uses npm trusted publishing/provenance (`npm publish --provenance`).
+
+## Pi package references
+
+- [pi-codex-goal](https://github.com/fitchmultz/pi-codex-goal): reference for a typed Pi extension package with `src/`, `pi.extensions`, `verify = typecheck + test`, and npm-ready `files` metadata.
+- [pi-subagents](https://github.com/nicobailon/pi-subagents): reference for GitHub Actions split between test and release workflows, including npm provenance publishing.
+- [pi-web-access](https://github.com/nicobailon/pi-web-access): reference for a single-extension Pi package with `pi-package` keywords and runtime package metadata.
+- [rpiv-todo](https://github.com/juicesharp/rpiv-mono/tree/main/packages/rpiv-todo): reference for Pi extension package metadata, peer dependency style, and README structure inside a multi-package repo.
+- [edb-agent-steer](https://github.com/agnishcc/pi-extention-monorepo/tree/main/packages/edb-agent-steer): reference for a minimal package-focused Pi extension layout inside a monorepo.
