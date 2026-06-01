@@ -1,33 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="520" viewBox="0 0 1600 520" role="img" aria-labelledby="title desc">
   <title id="title">pi-playwriter</title>
-  <desc id="desc">Browser Automation on Pi coding agent. playwriter by @remoses. pi extesion by @triangulodev.</desc>
+  <desc id="desc">Retro monochrome technical manual header reading pi-playwriter, Browser Automation on Pi coding agent, playwriter by @remoses, pi extesion by @triangulodev.</desc>
   <defs>
-    <filter id="roughen" x="-10%" y="-10%" width="120%" height="120%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="noise"/>
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5"/>
+    <filter id="paperNoise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="42" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.055"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="multiply"/>
     </filter>
-    <pattern id="grain" width="80" height="80" patternUnits="userSpaceOnUse">
-      <circle cx="8" cy="10" r="1.2" fill="#18222f" opacity="0.12"/>
-      <circle cx="44" cy="22" r="0.9" fill="#18222f" opacity="0.10"/>
-      <circle cx="70" cy="58" r="1.1" fill="#18222f" opacity="0.11"/>
-      <circle cx="25" cy="66" r="0.8" fill="#18222f" opacity="0.09"/>
-    </pattern>
+    <style>
+      .mono { font-family: "Courier New", "IBM Plex Mono", "SFMono-Regular", monospace; fill: #060606; }
+      .heavy { font-weight: 800; letter-spacing: 3px; }
+      .label { font-size: 34px; font-weight: 700; letter-spacing: 2px; }
+      .small { font-size: 26px; letter-spacing: 1px; }
+      .micro { font-size: 22px; letter-spacing: 1px; }
+      .line { stroke: #060606; stroke-width: 3; vector-effect: non-scaling-stroke; }
+      .thin { stroke: #060606; stroke-width: 2; vector-effect: non-scaling-stroke; }
+    </style>
   </defs>
 
-  <rect width="1200" height="420" rx="34" fill="#f7efe1"/>
-  <rect width="1200" height="420" rx="34" fill="url(#grain)"/>
-  <rect x="46" y="46" width="1108" height="328" rx="28" fill="none" stroke="#1f2a37" stroke-width="8" stroke-dasharray="20 16" opacity="0.9" filter="url(#roughen)"/>
-  <rect x="76" y="76" width="1048" height="268" rx="20" fill="none" stroke="#c2410c" stroke-width="5" opacity="0.75"/>
+  <rect x="7" y="7" width="1586" height="506" fill="#fbfbfa" stroke="#b8b8b8" stroke-width="3"/>
+  <rect x="12" y="12" width="1586" height="506" fill="none" stroke="#d0d0d0" stroke-width="3"/>
+  <rect x="7" y="7" width="1586" height="506" fill="#fbfbfa" filter="url(#paperNoise)" opacity="0.96"/>
 
-  <g transform="rotate(-4 600 210)" filter="url(#roughen)">
-    <text x="600" y="176" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="96" font-weight="900" letter-spacing="4" fill="#111827">pi-playwriter</text>
-    <text x="600" y="232" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="34" font-weight="800" letter-spacing="1.4" fill="#c2410c">Browser Automation on Pi coding agent</text>
-    <text x="600" y="292" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="28" font-weight="700" letter-spacing="1.2" fill="#374151">playwriter by @remoses  •  pi extesion by @triangulodev</text>
+  <!-- binder holes and tear line -->
+  <g fill="none" stroke="#222" stroke-width="3">
+    <circle cx="78" cy="92" r="13"/>
+    <circle cx="78" cy="176" r="13"/>
+    <circle cx="78" cy="260" r="13"/>
+    <circle cx="78" cy="344" r="13"/>
+    <circle cx="78" cy="428" r="13"/>
   </g>
+  <line x1="140" y1="7" x2="140" y2="513" stroke="#060606" stroke-width="3" stroke-dasharray="11 11"/>
 
-  <g opacity="0.28" fill="none" stroke="#1f2a37" stroke-width="3">
-    <circle cx="155" cy="128" r="42"/>
-    <circle cx="1045" cy="292" r="42"/>
-    <path d="M126 128h58M155 99v58M1016 292h58M1045 263v58"/>
-  </g>
+  <!-- top register -->
+  <text class="mono label" x="196" y="92">BLOCK &amp; STRIPE</text>
+  <text class="mono label" x="196" y="132">BROWSER MACHINES INC.</text>
+  <text class="mono label" x="1296" y="92">SECTION 01.0</text>
+  <text class="mono label" x="1386" y="132">JUN 2026</text>
+
+  <!-- centered title stamp -->
+  <rect x="552" y="168" width="496" height="122" fill="none" class="line"/>
+  <text class="mono heavy" x="800" y="229" text-anchor="middle" font-size="48">PI-PLAYWRITER</text>
+  <text class="mono small" x="800" y="267" text-anchor="middle">BROWSER CONTROL MX-4000</text>
+
+  <!-- command block -->
+  <text class="mono label" x="196" y="338">BROWSER AUTOMATION ON PI CODING AGENT</text>
+  <line class="line" x1="196" y1="366" x2="1538" y2="366"/>
+  <line class="thin" x1="196" y1="373" x2="1538" y2="373"/>
+
+  <text class="mono label" x="196" y="421">[TOOL]</text>
+  <text class="mono label" x="446" y="421">playwriter</text>
+  <line class="thin" x1="196" y1="452" x2="1538" y2="452"/>
+
+  <text class="mono small" x="196" y="491">playwriter by @remoses</text>
+  <text class="mono small" x="1116" y="491">pi extesion by @triangulodev</text>
 </svg>
