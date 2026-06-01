@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">pi-playwriter</title>
+  <desc id="desc">Browser Automation on Pi coding agent. playwriter by @remoses. pi extesion by @triangulodev.</desc>
+  <defs>
+    <filter id="roughen" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5"/>
+    </filter>
+    <pattern id="grain" width="80" height="80" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="10" r="1.2" fill="#18222f" opacity="0.12"/>
+      <circle cx="44" cy="22" r="0.9" fill="#18222f" opacity="0.10"/>
+      <circle cx="70" cy="58" r="1.1" fill="#18222f" opacity="0.11"/>
+      <circle cx="25" cy="66" r="0.8" fill="#18222f" opacity="0.09"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="420" rx="34" fill="#f7efe1"/>
+  <rect width="1200" height="420" rx="34" fill="url(#grain)"/>
+  <rect x="46" y="46" width="1108" height="328" rx="28" fill="none" stroke="#1f2a37" stroke-width="8" stroke-dasharray="20 16" opacity="0.9" filter="url(#roughen)"/>
+  <rect x="76" y="76" width="1048" height="268" rx="20" fill="none" stroke="#c2410c" stroke-width="5" opacity="0.75"/>
+
+  <g transform="rotate(-4 600 210)" filter="url(#roughen)">
+    <text x="600" y="176" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="96" font-weight="900" letter-spacing="4" fill="#111827">pi-playwriter</text>
+    <text x="600" y="232" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="34" font-weight="800" letter-spacing="1.4" fill="#c2410c">Browser Automation on Pi coding agent</text>
+    <text x="600" y="292" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="28" font-weight="700" letter-spacing="1.2" fill="#374151">playwriter by @remoses  •  pi extesion by @triangulodev</text>
+  </g>
+
+  <g opacity="0.28" fill="none" stroke="#1f2a37" stroke-width="3">
+    <circle cx="155" cy="128" r="42"/>
+    <circle cx="1045" cy="292" r="42"/>
+    <path d="M126 128h58M155 99v58M1016 292h58M1045 263v58"/>
+  </g>
+</svg>

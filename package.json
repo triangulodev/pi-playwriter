@@ -7,6 +7,7 @@
   "files": [
     "src",
     "README.md",
+    "assets",
     "CHANGELOG.md",
     "LICENSE"
   ],
@@ -22,12 +23,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hugooliveirad/pi-playwriter.git"
+    "url": "git+https://github.com/triangulodev/pi-playwriter.git"
   },
   "bugs": {
-    "url": "https://github.com/hugooliveirad/pi-playwriter/issues"
+    "url": "https://github.com/triangulodev/pi-playwriter/issues"
   },
-  "homepage": "https://github.com/hugooliveirad/pi-playwriter#readme",
+  "homepage": "https://github.com/triangulodev/pi-playwriter#readme",
   "pi": {
     "extensions": [
       "./src/index.ts"

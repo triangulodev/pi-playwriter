@@ -1,5 +1,7 @@
 # pi-playwriter
 
+![pi-playwriter stamp header](./assets/header.svg)
+
 Native [Pi](https://pi.dev/) package that registers a `playwriter` tool for the [Playwriter CLI](https://github.com/remorses/playwriter).
 
 It helps Pi agents inspect Playwriter setup, install or update the CLI, and run Playwriter commands from a native tool interface.
