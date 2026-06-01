@@ -34,6 +34,7 @@ const PlaywriterParams = Type.Object({
   packageSpec: Type.Optional(Type.String({ description: "Package spec for action=update. Defaults to playwriter@latest." })),
   packageManager: Type.Optional(Type.String({ description: "Package manager executable for action=update. Defaults to npm." })),
   global: Type.Optional(Type.Boolean({ description: "Use global package install for action=update. Defaults to true." })),
+  dryRun: Type.Optional(Type.Boolean({ description: "For action=update, construct and return the update command without executing it." })),
 });
 
 type PlaywriterAction =
@@ -59,6 +60,7 @@ type PlaywriterParams = {
   packageSpec?: string;
   packageManager?: string;
   global?: boolean;
+  dryRun?: boolean;
 };
 
 type Details = {
@@ -138,6 +140,7 @@ export default function (pi: ExtensionAPI): void {
             packageSpec: params.packageSpec,
             packageManager: params.packageManager,
             global: params.global,
+            dryRun: params.dryRun,
           }),
         );
         return textResult(formatCommandResult(command), { action, ok: command.ok, command });

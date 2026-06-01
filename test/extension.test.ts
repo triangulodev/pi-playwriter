@@ -26,3 +26,13 @@ test("version action invokes playwriter command and returns structured failure i
   assert.equal(typeof result.details.ok, "boolean");
   assert.match(result.content[0]!.text, /\$ playwriter --version/u);
 });
+
+test("update action supports a non-mutating dry run", async () => {
+  const tools: Array<{ execute: (id: string, params: unknown) => Promise<{ content: Array<{ text: string }>; details: { action: string; ok: boolean } }> }> = [];
+  register({ registerTool: (tool: (typeof tools)[number]) => tools.push(tool) } as never);
+
+  const result = await tools[0]!.execute("1", { action: "update", dryRun: true });
+  assert.equal(result.details.action, "update");
+  assert.equal(result.details.ok, true);
+  assert.match(result.content[0]!.text, /npm install --global playwriter@latest/u);
+});

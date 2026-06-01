@@ -23,7 +23,7 @@ Supported actions:
 | Action | Purpose |
 | --- | --- |
 | `doctor` | Inspect Node/npm/Playwriter installation, version, npm latest, sessions, and usage instructions. |
-| `update` | Install/update the Playwriter CLI. Defaults to `npm install --global playwriter@latest`. |
+| `update` | Install/update the Playwriter CLI. Defaults to `npm install --global playwriter@latest`; set `dryRun: true` to verify the command without mutating the installation. |
 | `eval` | Run JavaScript through `playwriter --eval`. Can auto-create a session when none is supplied. |
 | `session_new` | Run `playwriter session new`. |
 | `session_list` | Run `playwriter session list`. |

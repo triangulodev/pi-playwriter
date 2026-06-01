@@ -40,6 +40,7 @@ export interface UpdateOptions extends RunCommandOptions {
   packageSpec?: string;
   packageManager?: string;
   global?: boolean;
+  dryRun?: boolean;
 }
 
 export interface DoctorCheck {
@@ -178,6 +179,16 @@ export async function runPlaywriterUpdate(options: UpdateOptions = {}): Promise<
   const packageManager = options.packageManager ?? "npm";
   const packageSpec = options.packageSpec ?? "playwriter@latest";
   const args = options.global === false ? ["install", packageSpec] : ["install", "--global", packageSpec];
+  if (options.dryRun) {
+    return {
+      command: renderCommand(packageManager, args),
+      exitCode: 0,
+      stdout: "Dry run: update command was constructed but not executed.",
+      stderr: "",
+      timedOut: false,
+      ok: true,
+    };
+  }
   return runCommand(packageManager, args, options);
 }
 
