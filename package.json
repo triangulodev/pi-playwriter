@@ -1,0 +1,65 @@
+{
+  "name": "pi-playwriter",
+  "version": "0.1.0",
+  "description": "Native Pi tool for using, updating, and diagnosing the Playwriter CLI.",
+  "type": "module",
+  "main": "src/index.ts",
+  "files": [
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "pi-package",
+    "pi",
+    "pi-extension",
+    "extension",
+    "playwriter",
+    "browser-automation"
+  ],
+  "author": "Hugo Bessa",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hugooliveirad/pi-playwriter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hugooliveirad/pi-playwriter/issues"
+  },
+  "homepage": "https://github.com/hugooliveirad/pi-playwriter#readme",
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ]
+  },
+  "scripts": {
+    "test": "node --import tsx --test test/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "verify": "npm run typecheck && npm test",
+    "pack:dry": "npm pack --dry-run"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    },
+    "typebox": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.78.0",
+    "@types/node": "^25.9.1",
+    "tsx": "^4.22.3",
+    "typebox": "^1.1.39",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "packageManager": "npm@11.16.0"
+}
