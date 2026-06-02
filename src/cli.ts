@@ -20,6 +20,7 @@ export interface CommandResult {
 export interface RunCommandOptions {
   timeoutMs?: number;
   env?: NodeJS.ProcessEnv;
+  redactedArgNames?: readonly string[];
 }
 
 export interface EvalOptions extends RunCommandOptions {
@@ -69,6 +70,40 @@ export function renderCommand(command: string, args: readonly string[]): string 
   return [command, ...args].map(shellQuote).join(" ");
 }
 
+export function redactCommandArgs(args: readonly string[], redactedArgNames: readonly string[]): string[] {
+  const redacted = new Set(redactedArgNames);
+  const result: string[] = [];
+  let redactNext = false;
+
+  for (const arg of args) {
+    if (redactNext) {
+      result.push("<redacted>");
+      redactNext = false;
+      continue;
+    }
+
+    const equalsIndex = arg.indexOf("=");
+    const flagName = equalsIndex === -1 ? arg : arg.slice(0, equalsIndex);
+    if (redacted.has(flagName)) {
+      if (equalsIndex === -1) {
+        result.push(arg);
+        redactNext = true;
+      } else {
+        result.push(`${flagName}=<redacted>`);
+      }
+      continue;
+    }
+
+    result.push(arg);
+  }
+
+  return result;
+}
+
+function renderResultCommand(command: string, args: readonly string[], options: RunCommandOptions): string {
+  return renderCommand(command, redactCommandArgs(args, options.redactedArgNames ?? []));
+}
+
 export async function commandExists(command: string, env: NodeJS.ProcessEnv = process.env): Promise<boolean> {
   if (command.includes("/") || command.includes("\\")) {
     try {
@@ -104,7 +139,7 @@ export async function runCommand(command: string, args: string[], options: RunCo
       windowsHide: true,
     });
     return {
-      command: renderCommand(command, args),
+      command: renderResultCommand(command, args, options),
       exitCode: 0,
       stdout: truncate(result.stdout),
       stderr: truncate(result.stderr),
@@ -114,7 +149,7 @@ export async function runCommand(command: string, args: string[], options: RunCo
   } catch (error) {
     const err = error as NodeJS.ErrnoException & { stdout?: string; stderr?: string; code?: number | string; signal?: string; killed?: boolean };
     return {
-      command: renderCommand(command, args),
+      command: renderResultCommand(command, args, options),
       exitCode: typeof err.code === "number" ? err.code : null,
       stdout: truncate(err.stdout ?? ""),
       stderr: truncate(err.stderr ?? err.message ?? ""),
@@ -171,13 +206,27 @@ export async function runPlaywriterEval(options: EvalOptions): Promise<EvalResul
   return {
     session,
     createdSession,
-    result: await runCommand("playwriter", playwriterArgsForEval({ ...options, session }), options),
+    result: await runCommand("playwriter", playwriterArgsForEval({ ...options, session }), { ...options, redactedArgNames: ["--token"] }),
   };
+}
+
+function validateUpdatePackageManager(packageManager: string): void {
+  if (!/^npm(?:\.cmd)?$/iu.test(packageManager)) {
+    throw new Error("action=update only supports the npm package manager.");
+  }
+}
+
+function validateUpdatePackageSpec(packageSpec: string): void {
+  if (!/^playwriter(?:@[A-Za-z0-9._~^*<>=+-]+)?$/u.test(packageSpec)) {
+    throw new Error("action=update only supports installing the playwriter package.");
+  }
 }
 
 export async function runPlaywriterUpdate(options: UpdateOptions = {}): Promise<CommandResult> {
   const packageManager = options.packageManager ?? "npm";
   const packageSpec = options.packageSpec ?? "playwriter@latest";
+  validateUpdatePackageManager(packageManager);
+  validateUpdatePackageSpec(packageSpec);
   const args = options.global === false ? ["install", packageSpec] : ["install", "--global", packageSpec];
   if (options.dryRun) {
     return {

@@ -36,3 +36,13 @@ test("update action supports a non-mutating dry run", async () => {
   assert.equal(result.details.ok, true);
   assert.match(result.content[0]!.text, /npm install --global playwriter@latest/u);
 });
+
+test("eval action redacts relay tokens from text and details", async () => {
+  const tools: Array<{ execute: (id: string, params: unknown) => Promise<{ content: Array<{ text: string }>; details: unknown }> }> = [];
+  register({ registerTool: (tool: (typeof tools)[number]) => tools.push(tool) } as never);
+
+  const result = await tools[0]!.execute("1", { action: "eval", code: "1", session: "demo", token: "SECRET_TOKEN", timeoutMs: 1 });
+  assert.doesNotMatch(result.content[0]!.text, /SECRET_TOKEN/u);
+  assert.doesNotMatch(JSON.stringify(result.details), /SECRET_TOKEN/u);
+  assert.match(result.content[0]!.text, /--token '<redacted>'/u);
+});
