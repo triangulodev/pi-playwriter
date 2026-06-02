@@ -24,4 +24,4 @@ jobs:
       - run: npm ci
       - run: npm run verify
       - run: npm run pack:dry
-      - run: npm publish --provenance
+      - run: npm publish --provenance --access public
